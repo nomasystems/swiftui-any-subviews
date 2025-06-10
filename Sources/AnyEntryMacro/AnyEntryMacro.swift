@@ -15,10 +15,10 @@ public struct AnyEntryMacro: DeclarationMacro {
         in context: some MacroExpansionContext
     ) -> [DeclSyntax] {
         guard
-            let argument = node.argumentList.first?.expression.as(StringLiteralExprSyntax.self),
+            let argument = node.arguments.first?.expression.as(StringLiteralExprSyntax.self),
             let key = argument.segments.first?.as(StringSegmentSyntax.self)?.content.text,
-            let defaultValueExpr = node.argumentList.dropFirst().first?.expression,
-            let genericArgument = node.genericArgumentClause?.arguments.first?.argumentType
+            let defaultValueExpr = node.arguments.dropFirst().first?.expression,
+            let genericArgument = node.genericArgumentClause?.arguments.first?.argument
         else {
             fatalError("Invalid macro usage")
         }
